@@ -1,7 +1,8 @@
-import React from 'react'
+import { Box } from "@mui/material";
+import React from "react";
 
-export default function Home() {
-  return (
-    <div>Home</div>
-  )
-}
+const Home = () => {
+  return <Box sx={{ margin: 10 }}>Welcome to Mood Meter!</Box>;
+};
+
+export default Home;
