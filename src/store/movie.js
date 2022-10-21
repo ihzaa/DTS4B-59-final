@@ -27,7 +27,7 @@ const useMovieStore = create(persist(
                         // fetch movies by genre
                         try {
                             const respMovie = await tmdb.get('/discover/movie', { with_genres: genre.id });
-                            if (respMovie.code === 200) {
+                            if (respMovie.status === 200) {
                                 const dataMovie = await respMovie.json();
                                 set(produce((state) => {
                                     state.movies[key].movies = dataMovie.results;

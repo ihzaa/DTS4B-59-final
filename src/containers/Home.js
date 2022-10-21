@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import MovieList from '../components/MovieList';
 import useMovieStore from '../store/movie';
 
 export default function Home() {
@@ -6,13 +7,18 @@ export default function Home() {
   const movies = useMovieStore(state => state.movies);
   const moviesReady = useMovieStore(state => state.moviesReady);
 
+  console.log(movies);
   useEffect(() => {
     fetchMoviesGenre();
-  },[]);
+  }, []);
 
   return (
     <>
-    {moviesReady ? <>OK</>: <>Loading...</>}
+      {moviesReady ? <>
+        {
+          movies.forEach(movie => <MovieList movies={movie} />)
+        }
+      </> : <>Loading...</>}
     </>
   )
 }
