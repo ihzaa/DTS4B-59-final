@@ -1,49 +1,33 @@
 import React from 'react'
-import AspectRatio from '@mui/joy/AspectRatio';
-import Card from '@mui/joy/Card';
-import CardOverflow from '@mui/joy/CardOverflow';
-import Divider from '@mui/joy/Divider';
-import Typography from '@mui/joy/Typography';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
-export default function MovieCard({movie}) {
-
+export default function MovieCard({ movie }) {
     return (
-        <Card variant="outlined" sx={{ width: 320 }}>
-            <CardOverflow>
-                <AspectRatio ratio="2">
-                    <img
-                        src="https://images.unsplash.com/photo-1532614338840-ab30cf10ed36?auto=format&fit=crop&w=318"
-                        srcSet="https://images.unsplash.com/photo-1532614338840-ab30cf10ed36?auto=format&fit=crop&w=318&dpr=2 2x"
-                        loading="lazy"
-                        alt=""
-                    />
-                </AspectRatio>
-            </CardOverflow>
-            <Typography level="h2" sx={{ fontSize: 'md', mt: 2 }}>
-                Yosemite National Park
-            </Typography>
-            <Typography level="body2" sx={{ mt: 0.5, mb: 2 }}>
-                California
-            </Typography>
-            <Divider />
-            <CardOverflow
-                variant="soft"
-                sx={{
-                    display: 'flex',
-                    gap: 1.5,
-                    py: 1.5,
-                    px: 'var(--Card-padding)',
-                    bgcolor: 'background.level1',
-                }}
-            >
-                <Typography level="body3" sx={{ fontWeight: 'md', color: 'text.secondary' }}>
-                    6.3k views
+        <Card sx={{ mx: 2 }}>
+            <CardMedia
+                component="img"
+                height="140"
+                image={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+                alt="green iguana"
+            />
+            <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                    {movie.original_title}
                 </Typography>
-                <Divider orientation="vertical" />
-                <Typography level="body3" sx={{ fontWeight: 'md', color: 'text.secondary' }}>
-                    1 hour ago
-                </Typography>
-            </CardOverflow>
+                {/* <Typography variant="body2" color="text.secondary">
+                    Lizards are a widespread group of squamate reptiles, with over 6,000
+                    species, ranging across all continents except Antarctica
+                </Typography> */}
+            </CardContent>
+            {/* <CardActions>
+                <Button size="small">Share</Button>
+                <Button size="small">Learn More</Button>
+            </CardActions> */}
         </Card>
     );
 }

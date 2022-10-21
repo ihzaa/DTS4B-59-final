@@ -7,18 +7,17 @@ export default function Home() {
   const movies = useMovieStore(state => state.movies);
   const moviesReady = useMovieStore(state => state.moviesReady);
 
-  console.log(movies);
   useEffect(() => {
     fetchMoviesGenre();
   }, []);
 
+  const movieList = moviesReady ?
+    movies.map(movie => <MovieList movies={movie.movies} key={movie.id} genre={movie.name}></MovieList>)
+    : <>Loading...</>;
+
   return (
-    <>
-      {moviesReady ? <>
-        {
-          movies.forEach(movie => <MovieList movies={movie} />)
-        }
-      </> : <>Loading...</>}
-    </>
+    <div tyle="margin:auto">
+      {movieList}
+    </div>
   )
 }
