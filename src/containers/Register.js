@@ -6,34 +6,30 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
-import { auth } from "../config/firebase";
+import GoogleIcon from "@mui/icons-material/Google";
+import React, { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  auth,
+  registerWithEmailAndPassword,
+  signInWithGoogle,
+} from "../config/firebase";
+import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const email = data.get("email");
-    const password = data.get("password");
-
-    try {
-      const { user } = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log(user);
-      navigate("/");
-    } catch (error) {
-      setErrorMessage(error.message);
-    }
+  const register = () => {
+    if (!email) alert("Please enter email");
+    registerWithEmailAndPassword(email, password);
   };
+  useEffect(() => {
+    if (loading) return;
+    if (user) navigate("/dashboard");
+  }, [user, loading]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -51,7 +47,7 @@ const Register = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -61,6 +57,8 @@ const Register = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -72,21 +70,39 @@ const Register = () => {
                 type="password"
                 id="password"
                 autoComplete="new-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
           </Grid>
-          <Typography color="red">{errorMessage}</Typography>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={register}
           >
             Sign Up
           </Button>
+          <Button
+            type="submit"
+            fullWidth
+            sx={{ mt: 1, mb: 2 }}
+            variant="outlined"
+            startIcon={<GoogleIcon />}
+            onClick={signInWithGoogle}
+          >
+            Sign Up with Google
+          </Button>
+
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link to="/login">Already have an account? Sign in</Link>
+              <Link
+                to="/login"
+                style={{ textDecoration: "none", color: "#1976d2" }}
+              >
+                Already have an account? Sign in
+              </Link>
             </Grid>
           </Grid>
         </Box>
