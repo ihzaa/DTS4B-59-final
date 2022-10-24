@@ -28,18 +28,51 @@ export default function MovieCard({ movie }) {
             alt="green iguana"
           />
           <CardContent>
-            <Typography gutterBottom variant="h6" component="div">
+            <Typography gutterBottom variant="h5" component="div">
               {movie.original_title}
             </Typography>
-            {/* <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                    species, ranging across all continents except Antarctica
-                </Typography> */}
+            <HtmlTooltip
+              title={
+                <React.Fragment>
+                  <Divider>
+                    {" "}
+                    <Chip label="Overview" />{" "}
+                  </Divider>
+                  <Typography color="inherit">{movie.overview}</Typography>
+                  <Divider>
+                    {" "}
+                    <Chip label="Rating" />{" "}
+                  </Divider>
+                  <Rating
+                    name="read-only"
+                    value={movie.vote_average / 2}
+                    precision={0.1}
+                    readOnly
+                  />
+                  <br />
+                  <Typography color="inherit">
+                    from {movie.vote_count} votes
+                  </Typography>
+                  <Divider>
+                    {" "}
+                    <Chip label="Detailed" />{" "}
+                  </Divider>
+                  <Typography color="inherit">
+                    <CalendarMonthIcon /> {movie.release_date}
+                  </Typography>
+                  <Typography color="inherit">
+                    <PreviewIcon /> {movie.popularity}
+                  </Typography>
+                </React.Fragment>
+              }
+            >
+              <Typography variant="body2" color="text.secondary">
+                {movie.overview.length > 75
+                  ? movie.overview.substring(0, 75) + "..."
+                  : movie.overview}
+              </Typography>
+            </HtmlTooltip>
           </CardContent>
-          {/* <CardActions>
-                <Button size="small">Share</Button>
-                <Button size="small">Learn More</Button>
-            </CardActions> */}
         </Card>
       </Grid>
     </Grid>
