@@ -12,8 +12,16 @@ export default function Home() {
   }, []);
 
   const movieList = moviesReady ?
-    movies.map(movie => <MovieList movies={movie.movies} key={movie.id} genre={movie.name}></MovieList>)
-    : <>Loading...</>;
+    (movies === [] ?
+      <>Error</>
+      :
+      movies.map(movie => {
+        return movie.movies ?
+          (<MovieList movies={movie.movies} key={movie.id} genre={movie.name}></MovieList>) : <></>
+      })
+    )
+    :
+    <>Loading...</>;
 
   return (
     <div tyle="margin:auto">

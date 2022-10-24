@@ -6,7 +6,7 @@ import produce from "immer";
 const useMovieStore = create(persist(
     (set, get) => ({
         movies: [],
-        genreCurrentIndex: [0, 3],
+        genreCurrentIndex: [0, 5],
         moviesReady: false,
         fetchMovies: async () => {
             set(produce((state) => {
@@ -40,10 +40,11 @@ const useMovieStore = create(persist(
                     })
             } catch (e) {
                 console.log(e);
+            } finally {
+                set(produce((state) => {
+                    state.moviesReady = true;
+                }));
             }
-            set(produce((state) => {
-                state.moviesReady = true;
-            }));
         }
     })
 ))
