@@ -1,30 +1,41 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import "./index.css";
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
+import { Box } from "@mui/material";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import App from "./App";
+import PrivateComponent from "./components/PrivateComponent";
+import MovieList from "./components/MovieList";
+import Login from "./auth/Login";
+import Register from "./auth/Register";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={darkTheme}>
-      <App />
-    </ThemeProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="/" element={<MovieList />} />
+          <Route
+            path="login"
+            element={
+              <PrivateComponent loginOnly={false}>
+                <Login />
+              </PrivateComponent>
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <PrivateComponent loginOnly={false}>
+                <Register />
+              </PrivateComponent>
+            }
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
