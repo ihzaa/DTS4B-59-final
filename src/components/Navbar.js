@@ -16,7 +16,7 @@ const navItems = [
 
 const Navbar = () => {
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", mb:10 }}>
       <AppBar>
         <Toolbar>
           <MovieFilter sx={{ display: "flex", mr: 1 }} />
