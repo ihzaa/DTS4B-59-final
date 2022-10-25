@@ -7,6 +7,7 @@ import HtmlTooltip from "./HtmlTooltip";
 import { Chip, Divider, Rating, Grid } from "@mui/material";
 import PreviewIcon from "@mui/icons-material/Preview";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   card: {
@@ -18,8 +19,13 @@ const styles = {
 };
 
 export default function MovieCard({ movie }) {
+  const navigate = useNavigate();
+
+  const toDetailPage = (id) => {
+    navigate(`movie/${id}`);
+  }
   return (
-    <Grid container spacing={2} alignItems="stretch">
+    <Grid container spacing={2} alignItems="stretch" className="card" onClick={() => toDetailPage(movie.id)}>
       <Grid item sx={{ mr: 1, flexGrow: 1 }}>
         <Card sx={{ mx: 2, height: 300, width: 200, cursor: "pointer" }}>
           <CardMedia
@@ -29,20 +35,17 @@ export default function MovieCard({ movie }) {
             alt="green iguana"
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {movie.original_title}
-            </Typography>
             <HtmlTooltip
               title={
                 <React.Fragment>
                   <Divider>
                     {" "}
-                    <Chip label="Overview" />{" "}
+                    <Chip label="Overview" sx={{ color: 'white' }} />{" "}
                   </Divider>
                   <Typography color="inherit">{movie.overview}</Typography>
                   <Divider>
                     {" "}
-                    <Chip label="Rating" />{" "}
+                    <Chip label="Rating" sx={{ color: 'white' }} />{" "}
                   </Divider>
                   <Rating
                     name="read-only"
@@ -56,7 +59,7 @@ export default function MovieCard({ movie }) {
                   </Typography>
                   <Divider>
                     {" "}
-                    <Chip label="Detailed" />{" "}
+                    <Chip label="Detailed" sx={{ color: 'white' }} />{" "}
                   </Divider>
                   <Typography color="inherit">
                     <CalendarMonthIcon /> {movie.release_date}
@@ -67,11 +70,15 @@ export default function MovieCard({ movie }) {
                 </React.Fragment>
               }
             >
-              <Typography variant="body2" color="text.secondary">
+              <Typography gutterBottom variant="h5" component="div">
+                {movie.original_title}
+              </Typography>
+
+              {/* <Typography variant="body2" color="text.secondary">
                 {movie.overview.length > 75
                   ? movie.overview.substring(0, 75) + "..."
                   : movie.overview}
-              </Typography>
+              </Typography> */}
             </HtmlTooltip>
           </CardContent>
         </Card>

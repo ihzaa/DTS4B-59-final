@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import MovieList from '../components/MovieList';
+import Navbar from '../components/Navbar';
 import useMovieStore from '../store/movie';
+import '../App.css';
 
 export default function Home() {
   const fetchMoviesGenre = useMovieStore(state => state.fetchMovies);
@@ -24,8 +26,11 @@ export default function Home() {
     <>Loading...</>;
 
   return (
-    <div tyle="margin:auto">
-      {movieList}
-    </div>
+    <>
+      <Navbar />
+      <div className='App' tyle="margin:auto">
+        {movieList}
+      </div>
+    </>
   )
 }

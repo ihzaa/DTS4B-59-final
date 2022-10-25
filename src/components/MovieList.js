@@ -4,9 +4,11 @@ import MovieCard from './MovieCard';
 export default function MovieList({ movies, genre }) {
     return (
         <>
-            <Typography variant="h6" gutterBottom>
-                {genre}
-            </Typography>
+            <div style={{ backgroundColor: '#454241', textAlign: 'center' }}>
+                <Typography variant="h6" gutterBottom color="disabled">
+                    {genre}
+                </Typography>
+            </div>
             <div className="cards-container">
                 {
                     movies != undefined ? movies.map((movie) => (

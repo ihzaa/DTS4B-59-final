@@ -6,6 +6,8 @@ import produce from "immer";
 const useMovieStore = create(persist(
     (set, get) => ({
         movies: [],
+        movie: {},
+        similarMovies: [],
         genreCurrentIndex: [0, 5],
         moviesReady: false,
         fetchMovies: async () => {
@@ -44,6 +46,39 @@ const useMovieStore = create(persist(
                 set(produce((state) => {
                     state.moviesReady = true;
                 }));
+            }
+        },
+        fetchMovieById: async (id) => {
+            set(produce((state) => {
+                state.moviesReady = false;
+            }));
+            try {
+                // fetch movie
+                const resp = await tmdb.get('/movie/' + id);
+                const data = await resp.json();
+                set(produce((state) => {
+                    state.movie = data;
+                }));
+            } catch (e) {
+                console.log(e);
+                throw new Error(e.message)
+            } finally {
+                set(produce((state) => {
+                    state.moviesReady = true;
+                }));
+            }
+        },
+        fetchSimilarMovie: async (id) => {
+            try {
+                // fetch movie
+                const resp = await tmdb.get('/movie/' + id + '/similar');
+                const data = await resp.json();
+                set(produce((state) => {
+                    state.similarMovies = data;
+                }));
+            } catch (e) {
+                console.log(e);
+                throw new Error(e.message)
             }
         }
     })

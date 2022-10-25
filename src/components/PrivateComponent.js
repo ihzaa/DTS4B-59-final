@@ -5,15 +5,19 @@ import { auth } from "../config/firebase";
 
 const PrivateComponent = ({ children, loginOnly = true }) => {
   const [user, isLoading] = useAuthState(auth);
-  if (!user && loginOnly) {
-    return <Navigate to="/login" />;
-  }
+  if (!isLoading) {
+    if (!user && loginOnly) {
+      return <Navigate to="/login" />;
+    }
 
-  if (user && !loginOnly) {
-    return <Navigate to="/" />;
-  }
+    if (user && !loginOnly) {
+      return <Navigate to="/" />;
+    }
 
-  return isLoading ? <div>loading...</div> : children;
+    return isLoading ? <div>loading...</div> : children;
+  }else{
+    return <div>loading...</div>;
+  }
 };
 
 export default PrivateComponent;
