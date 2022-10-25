@@ -22,7 +22,7 @@ export default function DetailMovie() {
     useEffect(() => {
         fetchMovieById(params.id);
         fetchSimilarMovie(params.id);
-    }, []);
+    }, [params]);
 
     const displayData = moviesReady ?
         movie != {} &&

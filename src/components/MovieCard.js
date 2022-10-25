@@ -22,7 +22,7 @@ export default function MovieCard({ movie }) {
   const navigate = useNavigate();
 
   const toDetailPage = (id) => {
-    navigate(`movie/${id}`);
+    navigate(`/movie/${id}`);
   }
   return (
     <Grid container spacing={2} alignItems="stretch" className="card" onClick={() => toDetailPage(movie.id)}>
