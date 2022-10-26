@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
+import { Link, NavLink, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -66,23 +66,23 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const queryParams = new URLSearchParams(window.location.search);
-  const setSearchKeywordStore = useMovieStore(state => state.setSearchKeyword);
-  const [searchKeyword, setSearchKeyword] = React.useState('');
+  const searchKeyword = useMovieStore(state => state.searchKeyword);
+  const setSearchKeyword = useMovieStore(state => state.setSearchKeyword);
+  const [searchParams, setSearchParams] = useSearchParams();
+
 
   React.useEffect(() => {
-    setSearchKeyword(queryParams.get('search'));
-  }, []);
+    setSearchKeyword(searchParams.get('search'));
+  }, [searchParams]);
 
   const searchMovie = (event) => {
     if (event.key === 'Enter') {
-      setSearchKeywordStore(event.target.value);
+      setSearchKeyword(event.target.value);
       event.target.value ? navigate(`/?search=${searchKeyword}`) : navigate(`/`);
-
     }
   };
 
-  const onChangeSearch = ({ target }) => {
+  const onSearchChange = ({ target }) => {
     setSearchKeyword(target.value);
   }
 
@@ -115,8 +115,8 @@ const Navbar = () => {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={onSearchChange}
               onKeyUpCapture={searchMovie}
-              onChange={onChangeSearch}
               value={searchKeyword}
             />
           </Search>
