@@ -9,14 +9,14 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { Avatar, Card, CardContent, CardMedia, Chip, Divider, Grid, Rating, Stack, Typography } from '@mui/material';
 import colors from '../config/colors';
-// import MovieList from '../components/MovieList';
+import MovieList from '../components/MovieList';
 
 export default function DetailMovie() {
     const params = useParams();
     const fetchMovieById = useMovieStore(state => state.fetchMovieById);
     const movie = useMovieStore(state => state.movie);
     const moviesReady = useMovieStore(state => state.moviesReady);
-    // const similarMovies = useMovieStore(state => state.similarMovies);
+    const similarMovies = useMovieStore(state => state.similarMovies);
     const fetchSimilarMovie = useMovieStore(state => state.fetchSimilarMovie);
 
     useEffect(() => {
@@ -88,7 +88,7 @@ export default function DetailMovie() {
         <>Loading...</>;
 
 
-    // const displaySimilarMovie = <Grid item xs={12}><MovieList movies={similarMovies.results} genre="Similar Movie" /></Grid>;
+    const displaySimilarMovie = similarMovies ? <Grid item xs={12}><MovieList movies={similarMovies.results} genre="Similar Movie" /></Grid> : <>Tidak ada data...</>;
     return (
         <>
             <Navbar />
@@ -98,7 +98,7 @@ export default function DetailMovie() {
                     <Box>
                         <Grid container spacing={2}>
                             {displayData}
-                            {/* {displaySimilarMovie} */}
+                            {displaySimilarMovie}
                         </Grid>
                     </Box>
                 </Container>
