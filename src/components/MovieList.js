@@ -12,7 +12,7 @@ export default function MovieList({ movies, genre }) {
                 </div>
                 <div className="cards-container">
                     {
-                        movies != undefined ? movies.map((movie) => (
+                        movies !== undefined ? movies.map((movie) => (
                             <MovieCard key={movie.id} movie={movie} />
                         ))
                             :

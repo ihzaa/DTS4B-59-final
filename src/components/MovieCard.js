@@ -9,15 +9,6 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useNavigate } from "react-router-dom";
 
-const styles = {
-  card: {
-    margin: 5,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-  },
-};
-
 export default function MovieCard({ movie }) {
   const navigate = useNavigate();
 

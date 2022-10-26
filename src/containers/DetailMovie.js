@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import { useParams } from 'react-router-dom';
 import useMovieStore from '../store/movie';
@@ -22,10 +22,10 @@ export default function DetailMovie() {
     useEffect(() => {
         fetchMovieById(params.id);
         fetchSimilarMovie(params.id);
-    }, [params]);
+    }, [params, fetchMovieById, fetchSimilarMovie]);
 
     const displayData = moviesReady ?
-        movie != {} &&
+        movie !== {} &&
 
         <Grid item xs={12}>
             <Card>
