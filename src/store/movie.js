@@ -11,37 +11,56 @@ const useMovieStore = create(persist(
         genreCurrentIndex: [0, 5],
         moviesReady: false,
         searchKeyword: '',
+        isFetchNextPage: false,
         setSearchKeyword: (value) => {
             set(produce((state) => {
                 state.searchKeyword = value;
             }));
         },
         fetchMovies: async ({ searchKeyword }) => {
-            set(produce((state) => {
-                state.moviesReady = false;
-            }));
             try {
-                // fetch genre
-                const respGenre = await tmdb.get('/genre/movie/list');
-                const dataGenre = await respGenre.json();
-                set(produce((state) => {
-                    state.movies = dataGenre.genres;
-                }));
                 if (searchKeyword) {
+                    if (get().isFetchNextPage) {
+                        return;
+                    }
+                    set(produce((state) => {
+                        state.isFetchNextPage = true;
+                    }));
                     try {
                         const query = { query: searchKeyword };
+                        if (get().movies.length === 1) {
+                            query.page = get().movies[0].movies.length / 20 + 1;
+                        }
                         const respMovie = await tmdb.get('/search/movie', query);
                         if (respMovie.status === 200) {
                             const dataMovie = await respMovie.json();
-                            set(produce((state) => {
-                                state.movies = [];
-                                state.movies[0] = { movies: dataMovie.results, genre: { id: 1, name: `Movie dengan keyword ${searchKeyword}` } };
-                            }));
+                            if (get().movies.length > 1) {
+                                set(produce((state) => {
+                                    state.movies = [];
+                                    state.movies[0] = { keyword: searchKeyword, movies: dataMovie.results, genre: { id: 1, name: `Movie dengan keyword ${searchKeyword}` } };
+                                }));
+                            } else {
+                                set(produce((state) => {
+                                    state.movies[0].movies = [...state.movies[0].movies, ...dataMovie.results];
+                                }));
+                            }
                         }
+                        set(produce((state) => {
+                            state.isFetchNextPage = false;
+                        }));
                     } catch (error) {
                         console.log(error);
                     }
                 } else {
+                    set(produce((state) => {
+                        state.moviesReady = false;
+                    }));
+                    // fetch genre
+                    const respGenre = await tmdb.get('/genre/movie/list');
+                    const dataGenre = await respGenre.json();
+                    set(produce((state) => {
+                        state.movies = dataGenre.genres;
+                    }));
                     get()
                         .movies
                         .slice(get().genreCurrentIndex[0], get().genreCurrentIndex[1])
