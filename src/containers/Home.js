@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import MovieList from '../components/MovieList';
 import Navbar from '../components/Navbar';
 import useMovieStore from '../store/movie';
@@ -9,14 +9,13 @@ export default function Home() {
   const fetchMoviesGenre = useMovieStore(state => state.fetchMovies);
   const movies = useMovieStore(state => state.movies);
   const moviesReady = useMovieStore(state => state.moviesReady);
-  const queryParams = new URLSearchParams(window.location.search);
   const setSearchKeywordStore = useMovieStore(state => state.setSearchKeyword);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams,] = useSearchParams();
 
   useEffect(() => {
-    setSearchKeywordStore(queryParams.get('search'))
-    fetchMoviesGenre({ searchKeyword: queryParams.get('search') });
-  }, [searchParams]);
+    setSearchKeywordStore(searchParams.get('search'))
+    fetchMoviesGenre({ searchKeyword: searchParams.get('search') });
+  }, [searchParams, fetchMoviesGenre, setSearchKeywordStore]);
 
   const movieList = moviesReady ?
     (movies === [] ?

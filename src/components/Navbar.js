@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { Link, NavLink, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { Link, NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -68,12 +68,12 @@ const Navbar = () => {
   const navigate = useNavigate();
   const searchKeyword = useMovieStore(state => state.searchKeyword);
   const setSearchKeyword = useMovieStore(state => state.setSearchKeyword);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
 
   React.useEffect(() => {
     setSearchKeyword(searchParams.get('search'));
-  }, [searchParams]);
+  }, [searchParams, setSearchKeyword]);
 
   const searchMovie = (event) => {
     if (event.key === 'Enter') {
