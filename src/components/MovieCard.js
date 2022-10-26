@@ -32,7 +32,7 @@ export default function MovieCard({ movie }) {
             component="img"
             height="170"
             image={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-            alt="green iguana"
+            alt={movie.original_title}
           />
           <CardContent>
             <HtmlTooltip
