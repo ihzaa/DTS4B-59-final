@@ -18,4 +18,4 @@ Contoh: `dts4a-01-final`
 
 Branch dapat sesuai dengan kebutuhan dan kesepakatan bersama dalam pair, namun hasil akhirnya harus di merge ke branch `main` dan di push ke Github. Pastikan hasil akhir kode sudah ter-push!
 
-<a href="https://gfycat.com/concernedripegerbil"><img src="https://gfycat.com/concernedripegerbil"></a>
+<a href="https://thumbs.gfycat.com/ConcernedRipeGerbil-max-1mb.gif"><img src="https://thumbs.gfycat.com/ConcernedRipeGerbil-max-1mb.gif"></a>
