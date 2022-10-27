@@ -1,6 +1,8 @@
+
 # DTS REA4 Final Project
 
 Ketentuan lengkap bisa dilihat di [Final Project Guidelines](https://docs.google.com/document/d/122KyWNQ4xxU4aFwWbM4vIfH7LM4AH2CZEZa3YsEHjCk). 
+
 
 ## Daftar pair
 
@@ -18,4 +20,9 @@ Contoh: `dts4a-01-final`
 
 Branch dapat sesuai dengan kebutuhan dan kesepakatan bersama dalam pair, namun hasil akhirnya harus di merge ke branch `main` dan di push ke Github. Pastikan hasil akhir kode sudah ter-push!
 
+#DEPOLY
+https://movie-app-tim-59.netlify.app/
+
+
+#MYGIF
 <a href="https://thumbs.gfycat.com/ConcernedRipeGerbil-size_restricted.gif"><img src="https://thumbs.gfycat.com/ConcernedRipeGerbil-size_restricted.gif"></a>
