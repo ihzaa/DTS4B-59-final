@@ -124,7 +124,7 @@ export default function DetailMovie() {
     <>Loading...</>
   );
 
-  const displaySimilarMovie = similarMovies.length ? (
+  const displaySimilarMovie = similarMovies.results ? (
     <Grid item xs={12}>
       <MovieList movies={similarMovies.results} genre="Similar Movie" />
     </Grid>
