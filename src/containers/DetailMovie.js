@@ -25,8 +25,7 @@ export default function DetailMovie() {
     }, [params, fetchMovieById, fetchSimilarMovie]);
 
     const displayData = moviesReady ?
-        movie !== {} &&
-
+        movie &&
         <Grid item xs={12}>
             <Card>
                 <CardMedia
@@ -88,7 +87,7 @@ export default function DetailMovie() {
         <>Loading...</>;
 
 
-    const displaySimilarMovie = similarMovies ? <Grid item xs={12}><MovieList movies={similarMovies.results} genre="Similar Movie" /></Grid> : <>Tidak ada data...</>;
+    const displaySimilarMovie = similarMovies !== [] ? <Grid item xs={12}><MovieList movies={similarMovies.results} genre="Similar Movie" /></Grid> : <>Tidak ada data...</>;
     return (
         <>
             <Navbar />
